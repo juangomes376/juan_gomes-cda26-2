@@ -18,11 +18,11 @@
         5 => 45,   // 0.05€
         2 => 45,   // 0.02€
         1 => 45,   // 0.01€
-
     ];
 
+    // $stockInitial = [];
 
-    function caisse($montantTotal, $montantPaye) {
+    function caisse($montantTotal, $montantPaye, $stockInitial) {
 
         global $stockInitial;
 
@@ -44,7 +44,7 @@
             ];
         }
 
-        $monnaieRendue = calculerMonnaieRendue($resteDuCents);
+        $monnaieRendue = calculerMonnaieRendue($resteDuCents, $stockInitial);
 
 
         foreach ($monnaieRendue as $valeurCents => $quantite) {
@@ -61,11 +61,11 @@
     }
 
 
-    function calculerMonnaieRendue($montantCents){
+    function calculerMonnaieRendue($montantCents, $stockInitial){
         $monnaieARendre = [];
         $montantRestant = $montantCents;
 
-        global $stockInitial;
+        // global $stockInitial;
 
         foreach ($stockInitial as $valeurCents => $quantiteEnStock) {
             while ($montantRestant >= $valeurCents && $quantiteEnStock > 0) {
@@ -96,8 +96,8 @@
         return $resultat;
     }
 
-    function afficherStock() {
-        global $stockInitial;
+    function afficherStock($stockInitial) {
+        // global $stockInitial;
         echo "\n### 💰 État Actuel du Stock de la Caisse\n";
         foreach ($stockInitial as $valeurCents => $quantite) {
             echo number_format($valeurCents / 100, 2, ',', '.') . " € : " . $quantite . " unités\n";
@@ -113,7 +113,7 @@ echo "Achat: " . number_format($montantAchat, 2, ',', '.') . " €\n";
 echo "Payé: " . number_format($montantDonne, 2, ',', '.') . " €\n\n";
 
 try {
-    $resultat = caisse($montantAchat, $montantDonne);
+    $resultat = caisse($montantAchat, $montantDonne, $stockInitial);
 
     echo "--- Résultat de la Transaction ---\n";
     echo "Reste dû à rendre: " . number_format($resultat['reste_du'], 2, ',', '.') . " €\n";
@@ -125,7 +125,7 @@ try {
     }
     
     // Afficher le nouveau stock (facultatif)
-    echo afficherStock();
+    echo afficherStock($stockInitial);
     
 } catch (Exception $e) {
     echo "❌ Erreur de Transaction: " . $e->getMessage() . "\n";
