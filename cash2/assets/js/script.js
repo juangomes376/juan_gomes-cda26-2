@@ -6,14 +6,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     prixAchatInput.addEventListener('click', function() {
         activeInput = prixAchatInput;
-        console.log("Input ativo: Prix Achat");
+        console.log("Entrée active : Prix d'achat");
         prixAchatInput.classList.add('active-keypad-target');
         prixVenteInput.classList.remove('active-keypad-target');
     });
 
     prixVenteInput.addEventListener('click', function() {
         activeInput = prixVenteInput;
-        console.log("Input ativo: Prix Vente");
+        console.log("Entrée active : Prix de vente");
         prixVenteInput.classList.add('active-keypad-target');
         prixAchatInput.classList.remove('active-keypad-target');
     });
@@ -27,14 +27,14 @@ document.addEventListener('DOMContentLoaded', function() {
             activeInput = prixVenteInput;
             prixVenteInput.click();
         }
-        // console.log("Input ativo via Select: " + selectedValue);
+        // console.log("Entrée active via Select: " + selectedValue);
     });
 
     function appendKey(value) {
         if (activeInput) {
             activeInput.value += value;
         } else {
-            alert("Por favor, selecione 'Prix achat' ou 'Prix vente' antes de digitar.");
+            alert("Veuillez sélectionner 'Prix d'achat' ou 'Prix de vente' avant de saisir.");
         }
     }
 
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const vente = prixVenteInput.value;
 
         if (!achat || !vente) {
-            alert('Por favor, preencha ambos os campos: Prix achat e Prix vente.');
+            alert('Veuillez remplir les deux champs : Prix d\'achat et Prix de vente.');
             return;
         }
 
@@ -78,18 +78,18 @@ document.addEventListener('DOMContentLoaded', function() {
             success: function(response) {
                 const data = JSON.parse(response);
                 if (data.success) {
-                    let html = '<h3>Change: ' + data.change + ' €</h3><ul>';
+                    let html = '<h3>Change : ' + data.change + ' €</h3><ul>';
                     data.items.forEach(item => {
                         html += '<li>' + item.quantite + ' ' + item.type + (item.quantite > 1 ? 's' : '') + ' de ' + item.valeur + '</li>';
                     });
                     html += '</ul>';
                     document.getElementById('result').innerHTML = html;
                 } else {
-                    document.getElementById('result').innerHTML = '<p>Erro: ' + data.message + '</p>';
+                    document.getElementById('result').innerHTML = '<p>Erreur : ' + data.message + '</p>';
                 }
             },
             error: function() {
-                alert('Erro na requisição AJAX.');
+                alert('Erreur dans la requête AJAX.');
             }
         });
     }

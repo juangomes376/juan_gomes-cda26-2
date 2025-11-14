@@ -10,13 +10,13 @@ require_once __DIR__.'/assets/components/security.php';
     <link rel="stylesheet" href="/cash2/assets/css/style.css">
     <script src="/cash2/assets/js/script.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <title>Document</title>
+    <title>Caisse</title>
 </head>
 <body>
     <?php include __DIR__.'/assets/components/navbar.php'; ?>
-    <h1>This is cashboard</h1>
+    <h1>Tableau de caisse</h1>
 
-    <input class="prixachat" type="text" id="prix-achat-input" name="prix-achat-input" placeholder="Prix de achat" >
+    <input class="prixachat" type="text" id="prix-achat-input" name="prix-achat-input" placeholder="Prix d'achat" >
     <input class="prixvente" type="text" id="prix-vente-input" name="prix-vente-input" placeholder="Prix de vente" >
 
     <div id="result">
@@ -24,8 +24,8 @@ require_once __DIR__.'/assets/components/security.php';
     </div>
 
     <select name="select" id="elect" style="display: none;">
-        <option value="prixachat">Prix achat</option>
-        <option value="prixvente">Prix vente</option>
+        <option value="prixachat">Prix d'achat</option>
+        <option value="prixvente">Prix de vente</option>
     </select>
     <div id="numeric-keypad">
         <button class="key" onclick="appendKey('1')">1</button>
@@ -48,6 +48,6 @@ require_once __DIR__.'/assets/components/security.php';
         <option value="Standard">Standard</option>
         <option value="SmallFirst">SmallFirst</option>
     </select>
-    <input type="submit" id="submit" placeholder="Test Input" name="submit" onclick="cash()">
+    <input type="submit" id="submit" value="Calculer" name="submit" onclick="cash()">
 </body>
 </html>

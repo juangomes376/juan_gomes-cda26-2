@@ -117,17 +117,13 @@ function formaterMonnaieRendue($monnaieRendue){
 
 try {
 
+    if (!is_numeric($montantAchat) || !is_numeric($montantDonne)) {
+        echo json_encode(['success' => false, 'message' => 'Valeurs invalides.']);
+        exit;
+    }
+
     $resultat = caisse($montantAchat, $montantDonne, $stockBillets, $mode);
     echo json_encode(['success' => true, 'change' => $resultat['change'], 'items' => $resultat['items']]);
 } catch (Exception $e) {
     echo json_encode(['success' => false, 'message' => $e->getMessage()]);
 }
-
-
-
-
-
-
-
-
-?>
