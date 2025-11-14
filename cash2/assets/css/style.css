@@ -1,0 +1,47 @@
+
+html{
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    width: 100vw;
+    background-color: #f0f0f0;
+}
+
+#numeric-keypad {
+    min-width: 400px;
+    width: max-content; 
+    margin-top: 10px;
+}
+
+.key {
+    width: 30%;
+    height: 50px;
+    margin: 1%;
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+#prix-vente-input, #prix-achat-input {
+    width: 400px;
+    padding: 10px;
+    font-size: 1.5em;
+    text-align:left;
+    margin-bottom: 10px;
+}
+
+input{
+    box-sizing: border-box;
+    width: min-content;
+    min-width: 400px;
+}
