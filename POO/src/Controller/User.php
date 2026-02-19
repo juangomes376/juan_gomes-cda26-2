@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Core\Repository;
+
 class User
 {
    
@@ -17,8 +19,7 @@ class User
         // $requete = $conexion->prepare("SELECT * FROM users;");
         // $requete->execute();
         // $AllUsers = $requete->fetchAll();
-            $AllUsers = [
-            ];
+            $AllUsers = (new \App\Repository\UserRepository(\App\Core\Database::getInstance()->pdo))->getAllUsers();
 
         $html = '
         <!DOCTYPE html>
