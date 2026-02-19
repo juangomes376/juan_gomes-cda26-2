@@ -13,10 +13,12 @@ class User
     // get tout les utilisateurs
     public static function all()
     {
-        global $conexion;
-        $requete = $conexion->prepare("SELECT * FROM users;");
-        $requete->execute();
-        $AllUsers = $requete->fetchAll();
+        // global $conexion;
+        // $requete = $conexion->prepare("SELECT * FROM users;");
+        // $requete->execute();
+        // $AllUsers = $requete->fetchAll();
+            $AllUsers = [
+            ];
 
         $html = '
         <!DOCTYPE html>
