@@ -30,7 +30,6 @@ class User
             '.var_dump($AllUsers).'
         </body>
         </html>
-        
         ';
 
         return $html;
