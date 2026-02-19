@@ -15,23 +15,45 @@ class Router {
 
     public function resolve() {
         $method = $_SERVER['REQUEST_METHOD'];
-        $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        // rtrim remove a barra final para evitar erro de /user vs /user/
+        $path = rtrim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+        $path = $path ?: '/'; // Se ficar vazio, vira '/'
 
-        $callback = $this->routes[$method][$path] ?? false;
+        foreach ($this->routes[$method] as $route => $callback) {
+            // Normaliza a rota para comparação também
+            $route = rtrim($route, '/') ?: '/';
 
-        if (!$callback) {
-            http_response_code(404);
-            echo "404 - Vous etes perdu ? La page n'existe pas !";
-            return;
+            $pattern = preg_replace('/\{(\w+)\}/', '(?P<$1>[^/]+)', $route);
+            $pattern = "#^" . $pattern . "$#";
+
+            if (preg_match($pattern, $path, $matches)) {
+                $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
+                
+                // 1. Se for uma função anônima (Closure)
+                if (is_callable($callback)) {
+                    return call_user_func_array($callback, $params);
+                }
+
+                // 2. Se for um array ['Classe', 'Metodo']
+                if (is_array($callback)) {
+                    [$className, $methodName] = $callback;
+                    
+                    // IMPORTANTE: Remova espaços e verifique se a classe existe
+                    $className = trim($className); 
+
+                    if (class_exists($className)) {
+                        $controller = new $className();
+                        if (method_exists($controller, $methodName)) {
+                            return call_user_func_array([$controller, $methodName], $params);
+                        }
+                        die("Erro: Método $methodName não encontrado na classe $className");
+                    }
+                    die("Erro: Classe $className não encontrada. Verifique o require ou autoload.");
+                }
+            }
         }
 
-        if (is_callable($callback)) {
-            return call_user_func($callback);
-        }
-
-        if (is_array($callback)) {
-            $controller = new $callback[0];
-            return $controller->{$callback[1]}();
-        }
+        http_response_code(404);
+        echo "404 - Rota não encontrada";
     }
 }
