@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Controllers;
 
 class User
 {
@@ -31,10 +31,9 @@ class User
         </body>
         </html>
         
-        
         ';
 
-        return $AllUsers;
+        return $html;
     }
 
 }

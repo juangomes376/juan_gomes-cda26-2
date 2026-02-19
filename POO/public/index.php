@@ -2,10 +2,11 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use App\User;
+use App\Controllers\User;
+use App\Core\Router;
 
 
-$router = new \App\Router();
+$router = new App\Core\Router();
 
 
 $router->get('/', function() {
