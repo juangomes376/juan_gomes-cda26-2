@@ -1,7 +1,14 @@
-CREATE DATABASE IF NOT EXISTS helpdesk;
+CREATE DATABASE IF NOT EXISTS `helpdesk`;
+
+-- Cria um usuário dedicado para desenvolvimento: usuário=`helpdesk`, senha=`helpdesk`
+-- (Ajuste host / senha em produção; senha em texto claro apenas para ambiente local/seed)
+CREATE USER IF NOT EXISTS 'helpdesk'@'localhost' IDENTIFIED BY 'helpdesk';
+GRANT ALL PRIVILEGES ON `helpdesk`.* TO 'helpdesk'@'localhost';
+FLUSH PRIVILEGES;
+
 SET NAMES utf8mb4;
 SET time_zone = '+00:00';
-use helpdesk;
+USE `helpdesk`;
 DROP TABLE IF EXISTS ticket_tags;
 DROP TABLE IF EXISTS comments;
 DROP TABLE IF EXISTS tags;
