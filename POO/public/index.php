@@ -1,7 +1,9 @@
 <?php
-require_once __DIR__ . '/../src/Class/Router.php';
 
-$router = new Router();
+require_once __DIR__ . '/../vendor/autoload.php';
+
+
+$router = new \App\Router();
 
 
 $router->get('/', function() {
@@ -11,7 +13,7 @@ $router->get('/', function() {
 
 // $router->get('/contato', ['ContatoController', 'index']);
 
-$router->get('/contato', function() {
+$router->get('/contact', function() {
     echo "Salut vous etes sur la page de contact !";
 });
 
